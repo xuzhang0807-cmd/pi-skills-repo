@@ -1,0 +1,5 @@
+interface:
+  display_name: 故障定位
+  short_description: 遇到报错、测试失败、服务异常、性能或网络故障时使用；先复现、分层取证、验证单个假设，再最小修复和回归。
+policy:
+  allow_implicit_invocation: true

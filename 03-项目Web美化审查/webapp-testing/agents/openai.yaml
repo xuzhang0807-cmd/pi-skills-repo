@@ -1,0 +1,5 @@
+interface:
+  display_name: 网页运行测试
+  short_description: 检查网页能否加载、移动端布局、控制台报错和关键交互时使用；先查看真实 DOM 和截图，再设计测试，不用猜测选择器。
+policy:
+  allow_implicit_invocation: true

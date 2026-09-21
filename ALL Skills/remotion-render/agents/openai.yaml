@@ -1,0 +1,5 @@
+interface:
+  display_name: 视频渲染导出
+  short_description: 将已有 Remotion 工程导出为视频或静帧时使用；核对合成 ID、输出规格、路径和费用，真实渲染后检查产物。
+policy:
+  allow_implicit_invocation: true

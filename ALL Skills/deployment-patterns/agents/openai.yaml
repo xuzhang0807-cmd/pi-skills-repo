@@ -1,0 +1,5 @@
+interface:
+  display_name: 部署与回滚
+  short_description: 部署应用、制定发布与回滚方案、检查生产就绪状态时使用；默认先只读检查，输出预检、操作、验证和回滚证据。
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,5 @@
+interface:
+  display_name: Docker 检查维护
+  short_description: 创建或检查 Dockerfile、Compose、容器网络、数据卷、资源和运行异常时使用；优先适配现有单机环境，禁止默认清理数据卷。
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,470 @@
+{
+  "schema_version": 1,
+  "bundle_version": "2026.09.20",
+  "checked_on": "2026-09-20",
+  "edition": "portable-adapted",
+  "skills": [
+    {
+      "name": "deployment-patterns",
+      "title": "部署与回滚",
+      "alias": "deploy",
+      "description": "部署应用、制定发布与回滚方案、检查生产就绪状态时使用；默认先只读检查，输出预检、操作、验证和回滚证据。",
+      "repo": "affaan-m/ECC",
+      "upstream_blob_sha": "b9d279f8a99889b6f36db99b17b762374474dc99",
+      "upstream_commit": "934195f955cf0da847d59fcd6f68856bce112d8b",
+      "dependencies": "目标项目与部署环境访问权限；实际发布按平台另需 CLI 或 SSH。",
+      "changes": "保留预检、健康检查、分阶段发布、回滚原则；移除旧版本模板和平台命令硬编码，补充数据库回滚与生产操作保护。",
+      "source_path": "skills/deployment-patterns/SKILL.md",
+      "source_url": "https://github.com/affaan-m/ECC/blob/main/skills/deployment-patterns/SKILL.md",
+      "history_url": "https://github.com/affaan-m/ECC/commits/main/skills/deployment-patterns",
+      "immutable_blob_url": "https://api.github.com/repos/affaan-m/ECC/git/blobs/b9d279f8a99889b6f36db99b17b762374474dc99",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/deployment-patterns",
+      "local_file_sha256": {
+        "LICENSE.txt": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+        "ORIGIN.md": "67bc75b6d4f03b65b7736cf00d7528ef3dc1d8e7436d80bda54397847bd87e02",
+        "SKILL.md": "50f0543284d4d0edc99e204f5fe32deb64dfa91ccefbb5a0bfe4ddadf6e7664b",
+        "agents/openai.yaml": "8a1790b7ecec57c6cba3d32f0495fbafaf4a650b163f779572012eeb2d7a5e37"
+      }
+    },
+    {
+      "name": "docker-patterns",
+      "title": "Docker 检查维护",
+      "alias": "docker",
+      "description": "创建或检查 Dockerfile、Compose、容器网络、数据卷、资源和运行异常时使用；优先适配现有单机环境，禁止默认清理数据卷。",
+      "repo": "affaan-m/ECC",
+      "upstream_blob_sha": "e60c1d20f7fe4502c099ec7a6bb306f1d492b7f4",
+      "upstream_commit": "934195f955cf0da847d59fcd6f68856bce112d8b",
+      "dependencies": "Docker CLI、可访问的 Docker Engine；Compose 操作需要相应插件。",
+      "changes": "浓缩为通用 Docker 工作流；去掉 ECC 仓库专用安装器依赖、不必要的强制编排建议及破坏性清理捷径。",
+      "source_path": "skills/docker-patterns/SKILL.md",
+      "source_url": "https://github.com/affaan-m/ECC/blob/main/skills/docker-patterns/SKILL.md",
+      "history_url": "https://github.com/affaan-m/ECC/commits/main/skills/docker-patterns",
+      "immutable_blob_url": "https://api.github.com/repos/affaan-m/ECC/git/blobs/e60c1d20f7fe4502c099ec7a6bb306f1d492b7f4",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/docker-patterns",
+      "local_file_sha256": {
+        "LICENSE.txt": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+        "ORIGIN.md": "4dd9c377873cbe959c1298e4caee1dcb2141c7cf7a084f3a370aa050f627b3da",
+        "SKILL.md": "838598e60b837b3b092d63d5b0fbaf14ba08d84b8c4e6e9e1f11b308de80c099",
+        "agents/openai.yaml": "c57dd0a1562e5662faa5296bb26f950ec6a5ad8b9f80a1fa8409cdda4f65cce5"
+      }
+    },
+    {
+      "name": "systematic-debugging",
+      "title": "故障定位",
+      "alias": "debug",
+      "description": "遇到报错、测试失败、服务异常、性能或网络故障时使用；先复现、分层取证、验证单个假设，再最小修复和回归。",
+      "repo": "obra/superpowers",
+      "upstream_blob_sha": "095d194ac041502905f15b01d22d294fb94db8b2",
+      "upstream_commit": "5bf4e78011075bcfc0dc295f0724994cd123ee71",
+      "dependencies": "项目文件、日志及相应运行或测试工具。",
+      "changes": "保留四阶段排错方法；将必要技巧内联，去除插件命名空间依赖和可能打印密钥的诊断示例。",
+      "source_path": "skills/systematic-debugging/SKILL.md",
+      "source_url": "https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md",
+      "history_url": "https://github.com/obra/superpowers/commits/main/skills/systematic-debugging",
+      "immutable_blob_url": "https://api.github.com/repos/obra/superpowers/git/blobs/095d194ac041502905f15b01d22d294fb94db8b2",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/systematic-debugging",
+      "local_file_sha256": {
+        "LICENSE.txt": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "ORIGIN.md": "0e296484a0ee524b1664ae4c731507b6b1a0618c7860d1a6c6c35e08134c2218",
+        "SKILL.md": "35e34675d66fb27f272cd72cb8ef519344811d11ed06dac4a736a949fbd2c38f",
+        "agents/openai.yaml": "a76662c6230828f173d01c5bde037ecf32357932c809b98feeead9848de4812f"
+      }
+    },
+    {
+      "name": "verification-before-completion",
+      "title": "完成前验收",
+      "alias": "verify",
+      "description": "准备声称项目完成、故障修好、测试通过、部署成功或交付文件前使用；执行实际验证并区分通过、失败和未验证。",
+      "repo": "obra/superpowers",
+      "upstream_blob_sha": "7d45333cc4a49c57a80df6c1fe2fa777a207afbc",
+      "upstream_commit": "5bf4e78011075bcfc0dc295f0724994cd123ee71",
+      "dependencies": "能够读取实际产物与运行对应验证命令。",
+      "changes": "保留证据先于结论的原则，改为中文紧凑验收格式，避免无关仪式化步骤。",
+      "source_path": "skills/verification-before-completion/SKILL.md",
+      "source_url": "https://github.com/obra/superpowers/blob/main/skills/verification-before-completion/SKILL.md",
+      "history_url": "https://github.com/obra/superpowers/commits/main/skills/verification-before-completion",
+      "immutable_blob_url": "https://api.github.com/repos/obra/superpowers/git/blobs/7d45333cc4a49c57a80df6c1fe2fa777a207afbc",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/verification-before-completion",
+      "local_file_sha256": {
+        "LICENSE.txt": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "ORIGIN.md": "5fb7f9f85fa19a6c26e9845de20bf150091ea28c6e2613af586e3f5441a6a233",
+        "SKILL.md": "222e62b82f74643cfca69f433e1d7d049ab68ad0f68a90d308cd8432b5539618",
+        "agents/openai.yaml": "0b2d50241cc21312aae410f69525bb2532db3eceffbaa5588fae5e8aa90c876e"
+      }
+    },
+    {
+      "name": "project-start",
+      "title": "从零启动项目",
+      "alias": "start",
+      "description": "从零创建应用、网站、工具或自动化项目时使用；从需求与验收出发，完成最小可运行闭环，再迭代和交付运行说明。",
+      "repo": null,
+      "upstream_blob_sha": null,
+      "upstream_commit": null,
+      "dependencies": "项目读写权限；所选技术栈工具按需准备。",
+      "changes": "本次本地新编的轻量项目流程；不是第三方热门技能，未捆绑子代理或自动提交。",
+      "source_path": null,
+      "source_url": null,
+      "history_url": null,
+      "immutable_blob_url": null,
+      "kind": "local",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/project-start",
+      "local_file_sha256": {
+        "ORIGIN.md": "6d256af4554e19c455fdb5222ad22eea45cd1ca8a2cc6a0585961c52c7afea7f",
+        "SKILL.md": "928fd999264df1d313caac8ddd4f81dc0f153e032f22d2a214c9ad7eaa014433",
+        "agents/openai.yaml": "c1b7b45660d77beb4469c89e8e53338e54524e9240d02215e9a4a1e94ef826b8"
+      }
+    },
+    {
+      "name": "test-driven-development",
+      "title": "测试驱动开发",
+      "alias": "test",
+      "description": "实现功能、修改行为或修复缺陷时使用；先建立能真实失败的测试，再最小实现、回归与重构，保护已有工作。",
+      "repo": "obra/superpowers",
+      "upstream_blob_sha": "46838cc9e893c06259e3bdad0fc2425b36242f15",
+      "upstream_commit": "5bf4e78011075bcfc0dc295f0724994cd123ee71",
+      "dependencies": "项目现有测试框架或明确的可重复验证方式。",
+      "changes": "保留红绿重构；不沿用无条件删除已有实现的要求；内联测试质量规则，不依赖未收录技能。",
+      "source_path": "skills/test-driven-development/SKILL.md",
+      "source_url": "https://github.com/obra/superpowers/blob/main/skills/test-driven-development/SKILL.md",
+      "history_url": "https://github.com/obra/superpowers/commits/main/skills/test-driven-development",
+      "immutable_blob_url": "https://api.github.com/repos/obra/superpowers/git/blobs/46838cc9e893c06259e3bdad0fc2425b36242f15",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/test-driven-development",
+      "local_file_sha256": {
+        "LICENSE.txt": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "ORIGIN.md": "9ba8f25696027d3b59c1a0c417e309ea920e9b9c0ef1b1c0e6ece9c7d57a60f0",
+        "SKILL.md": "715612ed8b2ef5aaf991a6659590166a6c90f56097712e48bcd5597126d12e31",
+        "agents/openai.yaml": "64c8bacac4fc4d368e45e92beed640be417c7dac6c77eb6a8378cadf95d47742"
+      }
+    },
+    {
+      "name": "requesting-code-review",
+      "title": "代码审查",
+      "alias": "review",
+      "description": "功能开发后、合并前或用户要求审查代码时使用；基于实际差异、需求和测试查找可证实的问题，输出位置、影响和修复建议。",
+      "repo": "obra/superpowers",
+      "upstream_blob_sha": "6d995da5c7d8d6c5a3cc63ddb701427f88ec2021",
+      "upstream_commit": "5bf4e78011075bcfc0dc295f0724994cd123ee71",
+      "dependencies": "项目与代码差异；独立子代理可选而非必需。",
+      "changes": "改为没有子代理也能执行的审查流程；明确自查不等于独立审查，纳入未提交修改，内联审查模板。",
+      "source_path": "skills/requesting-code-review/SKILL.md",
+      "source_url": "https://github.com/obra/superpowers/blob/main/skills/requesting-code-review/SKILL.md",
+      "history_url": "https://github.com/obra/superpowers/commits/main/skills/requesting-code-review",
+      "immutable_blob_url": "https://api.github.com/repos/obra/superpowers/git/blobs/6d995da5c7d8d6c5a3cc63ddb701427f88ec2021",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/requesting-code-review",
+      "local_file_sha256": {
+        "LICENSE.txt": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "ORIGIN.md": "88f3ea54de4345821593aa65627cb9865220cedf606aa90f63b55dff54943db1",
+        "SKILL.md": "eed99d506c045457c5a70308c5fe2c34272faad25b2bed497cae5f68c600cd47",
+        "agents/openai.yaml": "f251d4f9816549a40bfd8638950ffbe85f7eaf1bfc38e9b8241bf11cfdf41367"
+      }
+    },
+    {
+      "name": "frontend-design",
+      "title": "Web 视觉美化",
+      "alias": "ui",
+      "description": "新建网页、重做界面、优化排版、配色、动效或消除模板感时使用；先形成符合需求的视觉方案，再实现并截图检查。",
+      "repo": "anthropics/skills",
+      "upstream_blob_sha": "a5333457c414d20d625f307df945842c0952ecc3",
+      "upstream_commit": null,
+      "dependencies": "前端项目；视觉验收需要浏览器和可查看截图的模型。",
+      "changes": "依据当前上游设计原则整理中文流程；保留用户视觉要求优先，不把某一种流行风格设为默认。",
+      "source_path": "skills/frontend-design/SKILL.md",
+      "source_url": "https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md",
+      "history_url": "https://github.com/anthropics/skills/commits/main/skills/frontend-design",
+      "immutable_blob_url": "https://api.github.com/repos/anthropics/skills/git/blobs/a5333457c414d20d625f307df945842c0952ecc3",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/frontend-design",
+      "local_file_sha256": {
+        "LICENSE.txt": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "NOTICE.md": "ae85bbd932df9e7c79b221c0405d996f4ec9a41e57440bee682c741e3b820f7c",
+        "ORIGIN.md": "da9d0db7c24e62f257db76c91fe48606da62edd8e1cc92ff1e1b094267282381",
+        "SKILL.md": "5ec9d0fb5cb846df9e80f3ed56665b24863e78246e0ffe53d823b27af3e45714",
+        "agents/openai.yaml": "f4c55fc432d87009182407317933d6fffd56947d5fc9c1ed19fa2d41b338320e"
+      }
+    },
+    {
+      "name": "web-design-guidelines",
+      "title": "Web 规范审查",
+      "alias": "ui-check",
+      "description": "审查网页交互、可访问性、响应式、表单和界面一致性时使用；优先读取当前官方规则，无法联网则明确采用本地检查范围。",
+      "repo": "vercel-labs/agent-skills",
+      "upstream_blob_sha": "ceae92ab319216a68274168fba9b63b998b65997",
+      "upstream_commit": null,
+      "dependencies": "前端源码；完整当前规则需联网，实际视觉与交互检查需浏览器。",
+      "changes": "保留官方规则来源和文件行号输出；去除对 WebFetch 工具名的硬依赖，加入明确标注的离线检查降级。",
+      "source_path": "skills/web-design-guidelines/SKILL.md",
+      "source_url": "https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md",
+      "history_url": "https://github.com/vercel-labs/agent-skills/commits/main/skills/web-design-guidelines",
+      "immutable_blob_url": "https://api.github.com/repos/vercel-labs/agent-skills/git/blobs/ceae92ab319216a68274168fba9b63b998b65997",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/web-design-guidelines",
+      "local_file_sha256": {
+        "ORIGIN.md": "025e9694fc62f2e36a81e167389c4b07e0dc48237b2fad4d768a0c9be3c19b23",
+        "SKILL.md": "93e9d25a80ad04bf2e3ee119909615472811ee254f2945da48bbc0dba7224e5f",
+        "agents/openai.yaml": "38a648529fc93c3b17d06bed45192816a3780f2abe03d7855d4f7a83dcb6d29a"
+      }
+    },
+    {
+      "name": "webapp-testing",
+      "title": "网页运行测试",
+      "alias": "web-test",
+      "description": "检查网页能否加载、移动端布局、控制台报错和关键交互时使用；先查看真实 DOM 和截图，再设计测试，不用猜测选择器。",
+      "repo": "anthropics/skills",
+      "upstream_blob_sha": "4726215301db64a0cc4d41fc3219c61f37a30f4a",
+      "upstream_commit": null,
+      "dependencies": "Python 3.10+、Playwright 和 Chromium；自带脚本只做只读冒烟检查。",
+      "changes": "保留先侦察后交互的流程；不打包原 with_server.py，改用本地编写 smoke.py；以实际就绪元素替代强制等待 networkidle。",
+      "source_path": "skills/webapp-testing/SKILL.md",
+      "source_url": "https://github.com/anthropics/skills/blob/main/skills/webapp-testing/SKILL.md",
+      "history_url": "https://github.com/anthropics/skills/commits/main/skills/webapp-testing",
+      "immutable_blob_url": "https://api.github.com/repos/anthropics/skills/git/blobs/4726215301db64a0cc4d41fc3219c61f37a30f4a",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/webapp-testing",
+      "local_file_sha256": {
+        "LICENSE.txt": "14099b9c79d031b9d4b32c736a4e20f2b941f52dd79500532d62d26dd716110c",
+        "NOTICE.md": "d4412866836b96e836500d1e83e8ac152d36adc12c63306f3cb49a5980dc82b9",
+        "ORIGIN.md": "b62a6e77cb90d225368d39ae8ab0adf60a25310c46a5a2445fe9c9bd9b91a8f1",
+        "SKILL.md": "3220a583898a2a22b29f4ce7c9af180a259df58216b0aa570f0f27c3a2f3e0b6",
+        "agents/openai.yaml": "5a79cab01dbc7b1a7b0695e2cb7c671bd4e462dfe613f00883ee9f7c44b1e7a1",
+        "scripts/smoke.py": "e8af92fa2241051109872110bcfffd43e502fa882870ec53ed88af05fb5574a4"
+      }
+    },
+    {
+      "name": "image-design",
+      "title": "图片制作与审美",
+      "alias": "image",
+      "description": "制作海报、封面、插图、产品图或修改图片风格时使用；确定构图、配色、文字和参考约束，再调用真实可用的生成工具。",
+      "repo": null,
+      "upstream_blob_sha": null,
+      "upstream_commit": null,
+      "dependencies": "审美与提示词可直接使用；实际出图需要可用的图片生成或编辑工具，可能收费。",
+      "changes": "本次本地新编；不绑定模型、平台或字体，不冒充图片生成引擎。",
+      "source_path": null,
+      "source_url": null,
+      "history_url": null,
+      "immutable_blob_url": null,
+      "kind": "local",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/image-design",
+      "local_file_sha256": {
+        "ORIGIN.md": "f6363e79f4d0bdf433a2e3fe1f19eb8b04e0dca71d58ad41aa462226532fea0c",
+        "SKILL.md": "5375112078c4f77e8dfcf7d75adf65e3ff9efbef7936574149a77602be2f1c7a",
+        "agents/openai.yaml": "4b81a53542ac094193ed8e20b318b83fe4372bb113b23eeaee9576410e6af350"
+      }
+    },
+    {
+      "name": "image-review",
+      "title": "图片成品审查",
+      "alias": "image-check",
+      "description": "审查图片构图、人物一致性、文字、瑕疵、尺寸与交付质量时使用；必须查看实际图片，以具体位置给出问题和修订指令。",
+      "repo": null,
+      "upstream_blob_sha": null,
+      "upstream_commit": null,
+      "dependencies": "可查看图片的模型；可选元数据脚本需要 Python 3.10+ 和 Pillow。",
+      "changes": "本次本地新编；附只读图片信息脚本，尺寸检查不冒充审美或版权鉴定。",
+      "source_path": null,
+      "source_url": null,
+      "history_url": null,
+      "immutable_blob_url": null,
+      "kind": "local",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/image-review",
+      "local_file_sha256": {
+        "ORIGIN.md": "24afdf701ea1fa7e6edd98028d3ffefdd2e09655541d5c5bccab4da7e2efb492",
+        "SKILL.md": "18912ca1ba7f131de37f46c9e62495e706fcacd50dbee4076b760251d0c6a255",
+        "agents/openai.yaml": "2a4e10537633323440be56c813475e9192f698da087f94277c21840974b1c780",
+        "scripts/probe_image.py": "263bfd52a74a6b34bf918a666f2c63c46ec1204791e031ea50151cade9e080db"
+      }
+    },
+    {
+      "name": "fal-ai-media",
+      "title": "图片视频生成接口",
+      "alias": "media",
+      "description": "用户明确要求通过 fal.ai 生成图片、视频或音频时使用；先发现当前模型与真实工具、校验参数和费用，再执行与核验产物。",
+      "repo": "affaan-m/ECC",
+      "upstream_blob_sha": "b1e837bbb771d94f37e5e47e396b6c7dc84f57ae",
+      "upstream_commit": "934195f955cf0da847d59fcd6f68856bce112d8b",
+      "dependencies": "用户授权的 fal.ai 账号/API 额度及经过审核的 MCP 或客户端；本包不安装 MCP、不包含密钥。",
+      "changes": "保留统一生成流程；移除容易过期的模型 ID、参数和 npx 自动安装示例；改为实时发现并检查预算。",
+      "source_path": "skills/fal-ai-media/SKILL.md",
+      "source_url": "https://github.com/affaan-m/ECC/blob/main/skills/fal-ai-media/SKILL.md",
+      "history_url": "https://github.com/affaan-m/ECC/commits/main/skills/fal-ai-media",
+      "immutable_blob_url": "https://api.github.com/repos/affaan-m/ECC/git/blobs/b1e837bbb771d94f37e5e47e396b6c7dc84f57ae",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/fal-ai-media",
+      "local_file_sha256": {
+        "LICENSE.txt": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+        "ORIGIN.md": "22e05ebcda80dfa70c455e757da0c6450652c7850f3727c53e3dbe50ef2208ac",
+        "SKILL.md": "e35c28f358491783454433866a43ea699ad3ae8f61761bd214a3232820c515a3",
+        "agents/openai.yaml": "4e22921ebf31098daeb59d4456ebde6cfaac7a086c085b8538f4979cc4d9d3c0"
+      }
+    },
+    {
+      "name": "video-plan",
+      "title": "视频策划与审美",
+      "alias": "video",
+      "description": "制作短片、图生视频、宣传片或动画前使用；输出时间准确的分镜、镜头语言、动作、声音、参考一致性和生成顺序。",
+      "repo": null,
+      "upstream_blob_sha": null,
+      "upstream_commit": null,
+      "dependencies": "分镜与提示词无需 API；生成镜头需实际视频生成工具，程序化动画可用 Remotion。",
+      "changes": "本次本地新编的导演式规划流程；区分生成式视频与程序化动画，不绑定某一家模型。",
+      "source_path": null,
+      "source_url": null,
+      "history_url": null,
+      "immutable_blob_url": null,
+      "kind": "local",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/video-plan",
+      "local_file_sha256": {
+        "ORIGIN.md": "22f76aef99335ee221d78c6b1bc1c850b3c9205beb014f983ff8773cf3c422b6",
+        "SKILL.md": "56d38b583575f3f09757d186413859014fd373c816e8f2ced7daf1d12449af08",
+        "agents/openai.yaml": "a0fb556d53a8bc4506b1208b823878d20ebfe8651efc942486431ad8b5546913"
+      }
+    },
+    {
+      "name": "video-review",
+      "title": "视频成品审查",
+      "alias": "video-check",
+      "description": "审查视频的镜头衔接、人物一致性、动作、字幕、声音、时长和导出参数时使用；按实际时间点记录问题并说明抽检覆盖范围。",
+      "repo": null,
+      "upstream_blob_sha": null,
+      "upstream_commit": null,
+      "dependencies": "可查看视频或抽帧的模型；附加脚本需要 Python 3.10+、FFprobe，抽帧另需 FFmpeg。",
+      "changes": "本次本地新编；附只读探测与可选抽帧脚本，不把抽帧检查当成全片动态或音频验收。",
+      "source_path": null,
+      "source_url": null,
+      "history_url": null,
+      "immutable_blob_url": null,
+      "kind": "local",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/video-review",
+      "local_file_sha256": {
+        "ORIGIN.md": "a1fb737b7204e29e6d2f31eb1f5579ea370f1b3a01d9cb9316ee25fb03c77804",
+        "SKILL.md": "2650a350ec1566283bc61a8fc5365008b95e359693c1c53b053bb714355ee187",
+        "agents/openai.yaml": "db7b4225e0fd507eada7e81917e234de2b04dd093a42bcae5ea44af118e5cf67",
+        "scripts/probe_video.py": "bce3a495afedee06e1bd30839ec2d4ee8b81363591d32d92d77d9812eec54bc4"
+      }
+    },
+    {
+      "name": "remotion-create",
+      "title": "程序化视频制作",
+      "alias": "motion",
+      "description": "创建 React 驱动的动画视频、字幕卡、产品演示或数据动画时使用；安全初始化项目，按帧编排，预览后再按要求导出。",
+      "repo": "remotion-dev/skills",
+      "upstream_blob_sha": "73e582d75a4d19092702b510e5d1fdd2e350932b",
+      "upstream_commit": null,
+      "dependencies": "Node.js、Git 和对应项目的 Remotion/React 依赖；软件授权按上游条款，本包不包含这些软件。",
+      "changes": "整理为独立起步工作流；必要布局、分镜和按帧动画要求内联，不依赖整套 Remotion 技能。",
+      "source_path": "skills/remotion-create/SKILL.md",
+      "source_url": "https://github.com/remotion-dev/skills/blob/main/skills/remotion-create/SKILL.md",
+      "history_url": "https://github.com/remotion-dev/skills/commits/main/skills/remotion-create",
+      "immutable_blob_url": "https://api.github.com/repos/remotion-dev/skills/git/blobs/73e582d75a4d19092702b510e5d1fdd2e350932b",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/remotion-create",
+      "local_file_sha256": {
+        "ORIGIN.md": "17f8e1b062378e05e25c1c57049422e8169f93181d0eee917796d471dc1cdf0d",
+        "SKILL.md": "ea59b756bf46dc000c6f7baa96e7c679c6d150763d62a28c42ee8780028fe8f1",
+        "agents/openai.yaml": "7a0c35396779e8dfa87f19852255d0ae1b01b129792f287b4ec31107960f5ed8"
+      }
+    },
+    {
+      "name": "remotion-render",
+      "title": "视频渲染导出",
+      "alias": "render",
+      "description": "将已有 Remotion 工程导出为视频或静帧时使用；核对合成 ID、输出规格、路径和费用，真实渲染后检查产物。",
+      "repo": "remotion-dev/skills",
+      "upstream_blob_sha": "6e60afb588b062203638594d1d6f45aef3821b68",
+      "upstream_commit": null,
+      "dependencies": "可运行的 Remotion 工程及渲染依赖；导出后建议用 FFprobe 验证。",
+      "changes": "保留真实渲染与静帧入口；补充输出检查、禁止覆盖原文件以及格式透明度需按当前文档校验。",
+      "source_path": "skills/remotion-render/SKILL.md",
+      "source_url": "https://github.com/remotion-dev/skills/blob/main/skills/remotion-render/SKILL.md",
+      "history_url": "https://github.com/remotion-dev/skills/commits/main/skills/remotion-render",
+      "immutable_blob_url": "https://api.github.com/repos/remotion-dev/skills/git/blobs/6e60afb588b062203638594d1d6f45aef3821b68",
+      "kind": "adapted",
+      "checked_on": "2026-09-20",
+      "local_path": "ALL Skills/remotion-render",
+      "local_file_sha256": {
+        "ORIGIN.md": "3e753248001329e8730f090d28b704706d6c33e5d0e0c38ec41b521462945b9b",
+        "SKILL.md": "72c88c2f63f014ec6780ff70596018bdb687a2b71c3bfc09dca1dbe1a4a1e9da",
+        "agents/openai.yaml": "7cdd362c5bd06dd690532b946c4c9b69f2ef111799b22b5e4db5ee6fa1994811"
+      }
+    }
+  ],
+  "scenes": {
+    "1": {
+      "folder": "01-日常项目部署检查维护",
+      "label": "日常项目部署、检查、维护",
+      "skills": [
+        "deployment-patterns",
+        "docker-patterns",
+        "systematic-debugging",
+        "test-driven-development",
+        "verification-before-completion"
+      ]
+    },
+    "2": {
+      "folder": "02-从零开发项目",
+      "label": "从零开发项目",
+      "skills": [
+        "project-start",
+        "test-driven-development",
+        "systematic-debugging",
+        "requesting-code-review",
+        "frontend-design",
+        "webapp-testing",
+        "verification-before-completion"
+      ]
+    },
+    "3": {
+      "folder": "03-项目Web美化审查",
+      "label": "项目 Web 美化、审查",
+      "skills": [
+        "frontend-design",
+        "web-design-guidelines",
+        "webapp-testing",
+        "requesting-code-review"
+      ]
+    },
+    "4": {
+      "folder": "04-图片制作审美审查",
+      "label": "图片制作、审美、审查",
+      "skills": [
+        "image-design",
+        "image-review",
+        "fal-ai-media"
+      ]
+    },
+    "5": {
+      "folder": "05-视频制作审美审查",
+      "label": "视频制作、审美、审查",
+      "skills": [
+        "video-plan",
+        "video-review",
+        "remotion-create",
+        "remotion-render",
+        "fal-ai-media"
+      ]
+    }
+  },
+  "maintenance_scope": "check_updates.py compares upstream SKILL.md blobs only. Scenario copies are locally synchronized, never auto-upgraded from upstream."
+}

@@ -1,0 +1,5 @@
+interface:
+  display_name: 代码审查
+  short_description: 功能开发后、合并前或用户要求审查代码时使用；基于实际差异、需求和测试查找可证实的问题，输出位置、影响和修复建议。
+policy:
+  allow_implicit_invocation: true

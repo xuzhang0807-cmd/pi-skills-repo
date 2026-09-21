@@ -1,0 +1,5 @@
+interface:
+  display_name: Web 规范审查
+  short_description: 审查网页交互、可访问性、响应式、表单和界面一致性时使用；优先读取当前官方规则，无法联网则明确采用本地检查范围。
+policy:
+  allow_implicit_invocation: true

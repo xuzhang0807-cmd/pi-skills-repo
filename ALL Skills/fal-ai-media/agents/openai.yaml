@@ -1,0 +1,5 @@
+interface:
+  display_name: 图片视频生成接口
+  short_description: 用户明确要求通过 fal.ai 生成图片、视频或音频时使用；先发现当前模型与真实工具、校验参数和费用，再执行与核验产物。
+policy:
+  allow_implicit_invocation: true
