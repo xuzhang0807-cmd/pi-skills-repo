@@ -1,5 +1,0 @@
-interface:
-  display_name: 图片成品审查
-  short_description: 审查图片构图、人物一致性、文字、瑕疵、尺寸与交付质量时使用；必须查看实际图片，以具体位置给出问题和修订指令。
-policy:
-  allow_implicit_invocation: true

@@ -1,5 +1,0 @@
-interface:
-  display_name: 完成前验收
-  short_description: 准备声称项目完成、故障修好、测试通过、部署成功或交付文件前使用；执行实际验证并区分通过、失败和未验证。
-policy:
-  allow_implicit_invocation: true

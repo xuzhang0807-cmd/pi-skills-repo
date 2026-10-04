@@ -1,5 +1,0 @@
-interface:
-  display_name: 测试驱动开发
-  short_description: 实现功能、修改行为或修复缺陷时使用；先建立能真实失败的测试，再最小实现、回归与重构，保护已有工作。
-policy:
-  allow_implicit_invocation: true

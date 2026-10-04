@@ -1,5 +1,0 @@
-interface:
-  display_name: 程序化视频制作
-  short_description: 创建 React 驱动的动画视频、字幕卡、产品演示或数据动画时使用；安全初始化项目，按帧编排，预览后再按要求导出。
-policy:
-  allow_implicit_invocation: true

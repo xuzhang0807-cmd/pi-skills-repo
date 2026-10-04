@@ -1,5 +1,0 @@
-interface:
-  display_name: Web 视觉美化
-  short_description: 新建网页、重做界面、优化排版、配色、动效或消除模板感时使用；先形成符合需求的视觉方案，再实现并截图检查。
-policy:
-  allow_implicit_invocation: true

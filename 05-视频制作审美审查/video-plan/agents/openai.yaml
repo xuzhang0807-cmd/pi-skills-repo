@@ -1,5 +1,0 @@
-interface:
-  display_name: 视频策划与审美
-  short_description: 制作短片、图生视频、宣传片或动画前使用；输出时间准确的分镜、镜头语言、动作、声音、参考一致性和生成顺序。
-policy:
-  allow_implicit_invocation: true

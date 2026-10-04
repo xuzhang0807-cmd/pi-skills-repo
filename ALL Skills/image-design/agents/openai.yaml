@@ -1,5 +1,0 @@
-interface:
-  display_name: 图片制作与审美
-  short_description: 制作海报、封面、插图、产品图或修改图片风格时使用；确定构图、配色、文字和参考约束，再调用真实可用的生成工具。
-policy:
-  allow_implicit_invocation: true
