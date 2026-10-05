@@ -1,0 +1,14 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Node
+node_modules/
+
+# macOS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Local adaptations are tracked on purpose under patches/, but never here:
+/patches/*/*.tmp

@@ -1,11 +1,51 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "checked_on": "2026-10-04",
-  "description": "Upstream sources for the skills in office/, permanent/, project/ and _deps/. Update flow: compare each entry's path head commit upstream against 'commit', then sync changed files and refresh 'commit', 'commit_date' and 'checked_on'.",
+  "description": "Upstream sources for office/, permanent/ and project/. Read INSTALL.md before installing; adapt with scripts/adapt.mjs. Never edit the snapshot directories - adaptations live in the installed copy and patches/.",
+  "harness_detection": {
+    "order": "first match wins",
+    "rules": [
+      {
+        "harness": "claude-code",
+        "when": "CLAUDE_PLUGIN_ROOT is set, or skills are installed under .claude/skills/"
+      },
+      {
+        "harness": "codex",
+        "when": "CODEX_HOME is set, or skills are installed under ~/.codex/skills/"
+      },
+      {
+        "harness": "hermes",
+        "when": "the process or config mentions Hermes"
+      },
+      {
+        "harness": "pi",
+        "when": "none of the above"
+      }
+    ],
+    "registration": "Skills register by the SKILL.md 'name:' field, never by directory name."
+  },
+  "install": {
+    "layout": "Copy each skill directory from permanent/ and project/ flat into the harness skills search path as its own directory. Do not nest, do not install permanent/ or project/ as a single skill.",
+    "adapt_command": "node scripts/adapt.mjs --apply --dest <install-path> --repo-root <repo-root>",
+    "check_command": "node scripts/adapt.mjs --check --dest <install-path> --repo-root <repo-root>",
+    "revert_command": "node scripts/adapt.mjs --revert --dest <install-path> --skill <directory-name>",
+    "rules": [
+      "Never edit office/, permanent/ or project/ - they are byte-identical upstream snapshots. Adaptations go to the installed copy and patches/ only.",
+      "Dependency skills (grilling, domain-modeling, codebase-design, setup-matt-pocock-skills) must sit in the same search path as their callers, each in its own directory. Never nest them inside grill-me/.",
+      "Identical for all four harnesses; there is no per-harness install difference beyond the ui-ux-pro-max path rule."
+    ]
+  },
+  "self_check": [
+    "grilling, domain-modeling, codebase-design, setup-matt-pocock-skills resolve by name (frontmatter name:), not just by directory.",
+    "python <repo>/project/ui-ux-pro-max/scripts/search.py \"<query>\" --domain ux runs (absolute path).",
+    "agent-browser --version prints a version; if not, report 'documentation only, browser commands unavailable'.",
+    "Call names match SKILL.md name:, and browser usage goes through 'core'."
+  ],
   "update_check": {
     "latest_commit_for_path": "GET https://api.github.com/repos/{repo}/commits?path={path}&per_page=1",
     "tree_listing": "GET https://api.github.com/repos/{repo}/git/trees/{branch}?recursive=1",
-    "raw_file": "https://raw.githubusercontent.com/{repo}/{branch}/{path}/{file}"
+    "raw_file": "https://raw.githubusercontent.com/{repo}/{branch}/{path}/{file}",
+    "note": "Compare the whole path, not only SKILL.md: scripts/, references/, data/ and agents/ change independently. Do not write adaptations back into the snapshot directories."
   },
   "upstreams": {
     "anthropics/skills": {
@@ -46,7 +86,7 @@
       "branch": "main",
       "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
       "commit_date": "2026-08-28T15:36:07+02:00",
-      "license": "MIT (declared in README)"
+      "license": "MIT (declared in README; no LICENSE file in repo)"
     },
     "DietrichGebert/ponytail": {
       "repo": "DietrichGebert/ponytail",
@@ -68,6 +108,7 @@
   "skills": [
     {
       "name": "docx",
+      "registered_as": "docx",
       "category": "office",
       "local_path": "office/docx",
       "repo": "anthropics/skills",
@@ -80,10 +121,18 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/docx/SKILL.md",
       "history_url": "https://github.com/anthropics/skills/commits/main/skills/docx",
-      "kind": "snapshot"
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "snapshot",
+      "harness_action": "Outside Claude Code treat as a formatting spec: read SKILL.md and produce files with the current harness's file-writing tool. Redistribute per the LICENSE.txt in this directory."
     },
     {
       "name": "pdf",
+      "registered_as": "pdf",
       "category": "office",
       "local_path": "office/pdf",
       "repo": "anthropics/skills",
@@ -96,10 +145,18 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/pdf/SKILL.md",
       "history_url": "https://github.com/anthropics/skills/commits/main/skills/pdf",
-      "kind": "snapshot"
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "snapshot",
+      "harness_action": "Outside Claude Code treat as a formatting spec: read SKILL.md and produce files with the current harness's file-writing tool. Redistribute per the LICENSE.txt in this directory."
     },
     {
       "name": "pptx",
+      "registered_as": "pptx",
       "category": "office",
       "local_path": "office/pptx",
       "repo": "anthropics/skills",
@@ -112,10 +169,18 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/pptx/SKILL.md",
       "history_url": "https://github.com/anthropics/skills/commits/main/skills/pptx",
-      "kind": "snapshot"
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "snapshot",
+      "harness_action": "Outside Claude Code treat as a formatting spec: read SKILL.md and produce files with the current harness's file-writing tool. Redistribute per the LICENSE.txt in this directory."
     },
     {
       "name": "xlsx",
+      "registered_as": "xlsx",
       "category": "office",
       "local_path": "office/xlsx",
       "repo": "anthropics/skills",
@@ -128,10 +193,18 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/xlsx/SKILL.md",
       "history_url": "https://github.com/anthropics/skills/commits/main/skills/xlsx",
-      "kind": "snapshot"
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "snapshot",
+      "harness_action": "Outside Claude Code treat as a formatting spec: read SKILL.md and produce files with the current harness's file-writing tool. Redistribute per the LICENSE.txt in this directory."
     },
     {
       "name": "tdd",
+      "registered_as": "tdd",
       "category": "permanent",
       "local_path": "permanent/tdd",
       "repo": "mattpocock/skills",
@@ -144,10 +217,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/engineering/tdd/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/tdd",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "grill-me",
+      "registered_as": "grill-me",
       "category": "permanent",
       "local_path": "permanent/grill-me",
       "repo": "mattpocock/skills",
@@ -160,10 +240,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/productivity/grill-me/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/productivity/grill-me",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "code-review",
+      "registered_as": "code-review",
       "category": "permanent",
       "local_path": "permanent/code-review",
       "repo": "mattpocock/skills",
@@ -176,10 +263,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/engineering/code-review/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/code-review",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "diagnosing-bugs",
+      "registered_as": "diagnosing-bugs",
       "category": "permanent",
       "local_path": "permanent/diagnosing-bugs",
       "repo": "mattpocock/skills",
@@ -192,10 +286,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/engineering/diagnosing-bugs/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/diagnosing-bugs",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "find-skills",
+      "registered_as": "find-skills",
       "category": "permanent",
       "local_path": "permanent/find-skills",
       "repo": "vercel-labs/skills",
@@ -208,10 +309,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/find-skills/SKILL.md",
       "history_url": "https://github.com/vercel-labs/skills/commits/main/skills/find-skills",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "agent-browser",
+      "registered_as": "core",
       "category": "permanent",
       "local_path": "permanent/agent-browser",
       "repo": "vercel-labs/agent-browser",
@@ -224,10 +332,18 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skill-data/core/SKILL.md",
       "history_url": "https://github.com/vercel-labs/agent-browser/commits/main/skill-data/core",
-      "kind": "snapshot"
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "snapshot",
+      "harness_action": "Registration name is 'core' - do not rename. Four harnesses install the CLI first (npm i -g agent-browser && agent-browser install) and then use 'agent-browser skills get core'. Without CLI, read SKILL.md/references only and state that browser commands are unavailable."
     },
     {
       "name": "ponytail",
+      "registered_as": "ponytail",
       "category": "permanent",
       "local_path": "permanent/ponytail",
       "repo": "DietrichGebert/ponytail",
@@ -240,10 +356,130 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/ponytail/SKILL.md",
       "history_url": "https://github.com/DietrichGebert/ponytail/commits/main/skills/ponytail",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
+      "name": "grilling",
+      "registered_as": "grilling",
+      "category": "permanent",
+      "local_path": "permanent/grilling",
+      "repo": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "path": "skills/productivity/grilling",
+      "branch": "main",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "commit_date": "2026-09-29T13:37:40+01:00",
+      "license": "MIT",
+      "checked_on": "2026-10-04",
+      "entrypoint": "skills/productivity/grilling/SKILL.md",
+      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/productivity/grilling",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "dependency",
+      "required_by": [
+        "grill-me",
+        "grill-with-docs",
+        "improve-codebase-architecture"
+      ],
+      "harness_action": "Load in the same search path as grill-me / grill-with-docs. If grilling asks every question of one round instead of one at a time, this skill is what supplies that method."
+    },
+    {
+      "name": "domain-modeling",
+      "registered_as": "domain-modeling",
+      "category": "permanent",
+      "local_path": "permanent/domain-modeling",
+      "repo": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "path": "skills/engineering/domain-modeling",
+      "branch": "main",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "commit_date": "2026-09-29T13:37:40+01:00",
+      "license": "MIT",
+      "checked_on": "2026-10-04",
+      "entrypoint": "skills/engineering/domain-modeling/SKILL.md",
+      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/domain-modeling",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "dependency",
+      "required_by": [
+        "grill-with-docs",
+        "improve-codebase-architecture"
+      ],
+      "harness_action": "Discovered with grill-with-docs inside a project; no extra step."
+    },
+    {
+      "name": "codebase-design",
+      "registered_as": "codebase-design",
+      "category": "permanent",
+      "local_path": "permanent/codebase-design",
+      "repo": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "path": "skills/engineering/codebase-design",
+      "branch": "main",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "commit_date": "2026-09-29T13:37:40+01:00",
+      "license": "MIT",
+      "checked_on": "2026-10-04",
+      "entrypoint": "skills/engineering/codebase-design/SKILL.md",
+      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/codebase-design",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "dependency",
+      "required_by": [
+        "tdd",
+        "improve-codebase-architecture"
+      ],
+      "harness_action": "Called by tdd and improve-codebase-architecture; install next to them."
+    },
+    {
+      "name": "setup-matt-pocock-skills",
+      "registered_as": "setup-matt-pocock-skills",
+      "category": "permanent",
+      "local_path": "permanent/setup-matt-pocock-skills",
+      "repo": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "path": "skills/engineering/setup-matt-pocock-skills",
+      "branch": "main",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "commit_date": "2026-09-29T13:37:40+01:00",
+      "license": "MIT",
+      "checked_on": "2026-10-04",
+      "entrypoint": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
+      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/setup-matt-pocock-skills",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "dependency",
+      "required_by": [
+        "code-review",
+        "to-spec"
+      ],
+      "harness_action": "Run once per repository before first engineering-skill use. Do NOT keep it resident."
+    },
+    {
       "name": "frontend-design",
+      "registered_as": "frontend-design",
       "category": "project",
       "local_path": "project/frontend-design",
       "repo": "anthropics/skills",
@@ -256,10 +492,18 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/frontend-design/SKILL.md",
       "history_url": "https://github.com/anthropics/skills/commits/main/skills/frontend-design",
-      "kind": "snapshot"
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "snapshot",
+      "harness_action": "Read directly; no script dependency."
     },
     {
       "name": "ui-ux-pro-max",
+      "registered_as": "ui-ux-pro-max",
       "category": "project",
       "local_path": "project/ui-ux-pro-max",
       "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
@@ -272,10 +516,18 @@
       "checked_on": "2026-10-04",
       "entrypoint": ".claude/skills/ui-ux-pro-max/SKILL.md",
       "history_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/commits/main/.claude/skills/ui-ux-pro-max",
-      "kind": "snapshot"
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
+      "kind": "snapshot",
+      "harness_action": "Installed copy only: replace ${CLAUDE_PLUGIN_ROOT}/.claude/skills/ui-ux-pro-max/scripts/search.py with an absolute path to <repo>/project/ui-ux-pro-max/scripts/search.py. Skip on Claude Code when CLAUDE_PLUGIN_ROOT is set and that path exists. Needs Python 3."
     },
     {
       "name": "web-design-guidelines",
+      "registered_as": "web-design-guidelines",
       "category": "project",
       "local_path": "project/web-design-guidelines",
       "repo": "vercel-labs/agent-skills",
@@ -284,14 +536,21 @@
       "branch": "main",
       "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
       "commit_date": "2026-08-28T15:36:07+02:00",
-      "license": "MIT (declared in README)",
+      "license": "MIT (declared in README; no LICENSE file in repo)",
       "checked_on": "2026-10-04",
       "entrypoint": "skills/web-design-guidelines/SKILL.md",
       "history_url": "https://github.com/vercel-labs/agent-skills/commits/main/skills/web-design-guidelines",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "react-best-practices",
+      "registered_as": "vercel-react-best-practices",
       "category": "project",
       "local_path": "project/react-best-practices",
       "repo": "vercel-labs/agent-skills",
@@ -300,14 +559,21 @@
       "branch": "main",
       "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
       "commit_date": "2026-08-28T15:36:07+02:00",
-      "license": "MIT (declared in README)",
+      "license": "MIT (declared in README; no LICENSE file in repo)",
       "checked_on": "2026-10-04",
       "entrypoint": "skills/react-best-practices/SKILL.md",
       "history_url": "https://github.com/vercel-labs/agent-skills/commits/main/skills/react-best-practices",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "grill-with-docs",
+      "registered_as": "grill-with-docs",
       "category": "project",
       "local_path": "project/grill-with-docs",
       "repo": "mattpocock/skills",
@@ -320,10 +586,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/engineering/grill-with-docs/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/grill-with-docs",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "to-spec",
+      "registered_as": "to-spec",
       "category": "project",
       "local_path": "project/to-spec",
       "repo": "mattpocock/skills",
@@ -336,10 +609,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/engineering/to-spec/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/to-spec",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "improve-codebase-architecture",
+      "registered_as": "improve-codebase-architecture",
       "category": "project",
       "local_path": "project/improve-codebase-architecture",
       "repo": "mattpocock/skills",
@@ -352,10 +632,17 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/engineering/improve-codebase-architecture/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/improve-codebase-architecture",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
     },
     {
       "name": "handoff",
+      "registered_as": "handoff",
       "category": "project",
       "local_path": "project/handoff",
       "repo": "mattpocock/skills",
@@ -368,88 +655,13 @@
       "checked_on": "2026-10-04",
       "entrypoint": "skills/productivity/handoff/SKILL.md",
       "history_url": "https://github.com/mattpocock/skills/commits/main/skills/productivity/handoff",
+      "harnesses": [
+        "claude-code",
+        "codex",
+        "hermes",
+        "pi"
+      ],
       "kind": "snapshot"
-    },
-    {
-      "name": "grilling",
-      "category": "_deps",
-      "local_path": "_deps/grilling",
-      "repo": "mattpocock/skills",
-      "url": "https://github.com/mattpocock/skills",
-      "path": "skills/productivity/grilling",
-      "branch": "main",
-      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-      "commit_date": "2026-09-29T13:37:40+01:00",
-      "license": "MIT",
-      "checked_on": "2026-10-04",
-      "entrypoint": "skills/productivity/grilling/SKILL.md",
-      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/productivity/grilling",
-      "kind": "dependency",
-      "required_by": [
-        "grill-me",
-        "grill-with-docs",
-        "improve-codebase-architecture"
-      ]
-    },
-    {
-      "name": "domain-modeling",
-      "category": "_deps",
-      "local_path": "_deps/domain-modeling",
-      "repo": "mattpocock/skills",
-      "url": "https://github.com/mattpocock/skills",
-      "path": "skills/engineering/domain-modeling",
-      "branch": "main",
-      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-      "commit_date": "2026-09-29T13:37:40+01:00",
-      "license": "MIT",
-      "checked_on": "2026-10-04",
-      "entrypoint": "skills/engineering/domain-modeling/SKILL.md",
-      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/domain-modeling",
-      "kind": "dependency",
-      "required_by": [
-        "grill-with-docs",
-        "improve-codebase-architecture"
-      ]
-    },
-    {
-      "name": "codebase-design",
-      "category": "_deps",
-      "local_path": "_deps/codebase-design",
-      "repo": "mattpocock/skills",
-      "url": "https://github.com/mattpocock/skills",
-      "path": "skills/engineering/codebase-design",
-      "branch": "main",
-      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-      "commit_date": "2026-09-29T13:37:40+01:00",
-      "license": "MIT",
-      "checked_on": "2026-10-04",
-      "entrypoint": "skills/engineering/codebase-design/SKILL.md",
-      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/codebase-design",
-      "kind": "dependency",
-      "required_by": [
-        "tdd",
-        "improve-codebase-architecture"
-      ]
-    },
-    {
-      "name": "setup-matt-pocock-skills",
-      "category": "_deps",
-      "local_path": "_deps/setup-matt-pocock-skills",
-      "repo": "mattpocock/skills",
-      "url": "https://github.com/mattpocock/skills",
-      "path": "skills/engineering/setup-matt-pocock-skills",
-      "branch": "main",
-      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-      "commit_date": "2026-09-29T13:37:40+01:00",
-      "license": "MIT",
-      "checked_on": "2026-10-04",
-      "entrypoint": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
-      "history_url": "https://github.com/mattpocock/skills/commits/main/skills/engineering/setup-matt-pocock-skills",
-      "kind": "dependency",
-      "required_by": [
-        "code-review",
-        "to-spec"
-      ]
     }
   ]
 }

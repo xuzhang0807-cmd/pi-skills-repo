@@ -1,15 +1,19 @@
 # pi-skills-repo
 
-按用途分组的 Agent Skills 仓库。**除本 README、`upstream.json`、`licenses/` 与 `_deps/` 外，仓库内容只有三个分类文件夹：`office/`、`permanent/`、`project/`。**
+按用途分组的 Agent Skills 仓库。**仓库内容只有三个分类文件夹 `office/`、`permanent/`、`project/`，加上 `INSTALL.md`、`scripts/`、`patches/`、`licenses/`、`upstream.json`。**
 
 - `office/` — Anthropic 官方办公类技能（文档/表格/幻灯片/PDF）
-- `permanent/` — 长期常驻技能，任何项目都可加载
+- `permanent/` — 长期常驻技能，任何项目都可加载（含 grill 一组的四个依赖技能）
 - `project/` — 具体项目阶段按需加载的设计与工程技能
-- `_deps/` — 上述技能在 `SKILL.md` 中显式调用、但不在你清单里的共享依赖技能（见下文）
+- **`INSTALL.md` — 多 harness 安装与整改指南。拉库后先读它，再按当前环境整改。**
+- `scripts/adapt.mjs` — 自动完成环境整改，只改安装副本，不改上游原文
+- `patches/` — 适配时留下的原文备份与说明，可回滚
 - `upstream.json` — 机器可读的上游来源与版本基线，供维护 Agent 定期比对
 - `licenses/` — 各上游仓库的许可证原文
 
 **最后核对日期：2026-10-04（UTC）。** 每个技能目录都是对应上游该日提交的完整快照（含脚本、references、data 等，非仅 SKILL.md）。
+
+> **只做三件事就能用**：① 读 `INSTALL.md` 判断 harness；② 把 `permanent/*` 与 `project/*` 平铺复制到 harness 的技能搜索路径；③ 跑 `node scripts/adapt.mjs --apply --dest <安装路径> --repo-root "$PWD"`。
 
 ---
 
@@ -18,10 +22,15 @@
 | 分类 | 技能 | 数量 |
 |---|---|---:|
 | `office/` | docx, pdf, pptx, xlsx | 4 |
-| `permanent/` | agent-browser, code-review, diagnosing-bugs, find-skills, grill-me, ponytail, tdd | 7 |
+| `permanent/` | agent-browser, code-review, codebase-design, diagnosing-bugs, domain-modeling, find-skills, grilling, grill-me, ponytail, setup-matt-pocock-skills, tdd | 11 |
 | `project/` | frontend-design, grill-with-docs, handoff, improve-codebase-architecture, react-best-practices, to-spec, ui-ux-pro-max, web-design-guidelines | 8 |
 
-同名技能只装一份；不要把仓库根目录当成单个 Skill 导入。`_deps/` 默认不加载，只有在使用上面引用了它们的技能时才需要一并安装。
+同名技能只装一份；不要把仓库根目录当成单个 Skill 导入。**技能按 `SKILL.md` 的 `name:` 注册，不按目录名**——两处不一致属正常，不要改：
+
+- `permanent/agent-browser/` → `name: core`
+- `project/react-best-practices/` → `name: vercel-react-best-practices`
+
+`permanent/` 里 `grilling`、`domain-modeling`、`codebase-design`、`setup-matt-pocock-skills` 是**依赖技能**：它们被常驻技能按名字调用，必须和调用者放在**同一个搜索路径**、保持独立目录（详见 `INSTALL.md` §3.1，四个 harness 做法相同）。`setup-matt-pocock-skills` 每个仓库跑一次，**不进常驻**。
 
 ---
 
@@ -52,6 +61,21 @@
 | `find-skills` | https://github.com/vercel-labs/skills | `skills/find-skills` | https://github.com/vercel-labs/skills/commits/main/skills/find-skills |
 | `agent-browser` | https://github.com/vercel-labs/agent-browser | `skill-data/core` | https://github.com/vercel-labs/agent-browser/commits/main/skill-data/core |
 | `ponytail` | https://github.com/DietrichGebert/ponytail | `skills/ponytail` | https://github.com/DietrichGebert/ponytail/commits/main/skills/ponytail |
+| `grilling` ※依赖 | https://github.com/mattpocock/skills | `skills/productivity/grilling` | https://github.com/mattpocock/skills/commits/main/skills/productivity/grilling |
+| `domain-modeling` ※依赖 | https://github.com/mattpocock/skills | `skills/engineering/domain-modeling` | https://github.com/mattpocock/skills/commits/main/skills/engineering/domain-modeling |
+| `codebase-design` ※依赖 | https://github.com/mattpocock/skills | `skills/engineering/codebase-design` | https://github.com/mattpocock/skills/commits/main/skills/engineering/codebase-design |
+| `setup-matt-pocock-skills` ※依赖 | https://github.com/mattpocock/skills | `skills/engineering/setup-matt-pocock-skills` | https://github.com/mattpocock/skills/commits/main/skills/engineering/setup-matt-pocock-skills |
+
+依赖关系的调用方（四个 harness 相同）：
+
+| 依赖技能 | 被谁调用 |
+|---|---|
+| `grilling` | `grill-me`、`grill-with-docs`、`improve-codebase-architecture` |
+| `domain-modeling` | `grill-with-docs`、`improve-codebase-architecture` |
+| `codebase-design` | `tdd`、`improve-codebase-architecture` |
+| `setup-matt-pocock-skills` | `code-review`、`to-spec` |
+
+`grill-me` 自身正文只有一句 "Call the Skill tool with \"grilling\""，`grill-with-docs` 同样只做转发；不放这些依赖，它们无法工作。
 
 ### project/
 
@@ -66,16 +90,31 @@
 | `improve-codebase-architecture` | https://github.com/mattpocock/skills | `skills/engineering/improve-codebase-architecture` | https://github.com/mattpocock/skills/commits/main/skills/engineering/improve-codebase-architecture |
 | `handoff` | https://github.com/mattpocock/skills | `skills/productivity/handoff` | https://github.com/mattpocock/skills/commits/main/skills/productivity/handoff |
 
-### _deps/（被上表技能显式调用的依赖技能）
+---
 
-| 技能 | 上游仓库 | 上游路径 | 被谁调用 |
-|---|---|---|---|
-| `grilling` | https://github.com/mattpocock/skills | `skills/productivity/grilling` | `grill-me`、`grill-with-docs`、`improve-codebase-architecture` |
-| `domain-modeling` | https://github.com/mattpocock/skills | `skills/engineering/domain-modeling` | `grill-with-docs`、`improve-codebase-architecture` |
-| `codebase-design` | https://github.com/mattpocock/skills | `skills/engineering/codebase-design` | `tdd`、`improve-codebase-architecture` |
-| `setup-matt-pocock-skills` | https://github.com/mattpocock/skills | `skills/engineering/setup-matt-pocock-skills` | `code-review`、`to-spec` |
+## 环境适配速览
 
-**注意**：`grill-me` 自身正文只有一句 "Call the Skill tool with \"grilling\""，`grill-with-docs` 同样只做转发；不放 `_deps/` 这些技能，它们无法工作。
+完整说明见 **`INSTALL.md`**（harness 判定 → 安装 → 三项整改 → 自检 → 回滚）。要点：
+
+**判 harness，只取第一个命中：** 有 `CLAUDE_PLUGIN_ROOT` 或装在 `.claude/skills/` → Claude Code；有 `CODEX_HOME` 或装在 `~/.codex/skills/` → Codex；进程/配置出现 Hermes → Hermes；其余 → Pi。
+
+| 项 | 处理 |
+|---|---|
+| grill 一组 | 四个依赖与调用者同搜索路径、各自独立目录，**不要塞进 `grill-me/`**；四 harness 相同。若发现逐个问而非一轮问完，先加载 `grilling` |
+| `ui-ux-pro-max` | 上游写死 `${CLAUDE_PLUGIN_ROOT}/.claude/skills/ui-ux-pro-max/scripts/search.py`；**只改副本**为 `python "<本库>/project/ui-ux-pro-max/scripts/search.py"`。Claude Code 中该变量已设置且路径存在则不改。需 Python 3 |
+| `agent-browser` | 入口名 `core`（**不要改**），正文要求 `agent-browser skills get core`；四 harness 都先 `npm i -g agent-browser && agent-browser install`。无 CLI 时只读 `permanent/agent-browser/SKILL.md` 并**说明浏览器命令不可用** |
+| Anthropic 五个 | 按 `licenses/` 与技能目录内 `LICENSE.txt` 原文再分发。`frontend-design` 直接读；`docx`/`pdf`/`pptx`/`xlsx` 离开 Claude Code 时只当**版式规范**，用当前 harness 的写文件工具产出 |
+
+自动整改：
+
+```bash
+node scripts/adapt.mjs --list                                        # 打印真实注册名
+node scripts/adapt.mjs --check --dest <安装路径> --repo-root "$PWD"   # 预览
+node scripts/adapt.mjs --apply --dest <安装路径> --repo-root "$PWD"   # 应用（写 patches/ 备份）
+node scripts/adapt.mjs --revert --dest <安装路径> --skill <目录名>     # 回滚
+```
+
+**分类目录永远保持上游原文。** 脚本不会写它们，适配只落在安装副本与 `patches/`。
 
 ---
 
@@ -91,7 +130,7 @@
 | DietrichGebert/ponytail | `c982cd411abb53323c4baa1baa3c2f020b8d0b08` | 2026-10-03T07:12:55+02:00 |
 | nextlevelbuilder/ui-ux-pro-max-skill | `477bcb28c9812b385cb51a4605ddf30d7b2266e2` | 2026-10-03T23:05:26+07:00 |
 
-`upstream.json` 以机器可读形式记录同一批数据（含每个技能的上游仓库、路径、提交、许可证与本次收录日期）。
+`upstream.json` 以机器可读形式记录同一批数据（含每个技能的上游仓库、路径、提交、许可证、`required_by` 依赖关系与本次收录日期）。
 
 ---
 
@@ -105,12 +144,13 @@
 5. **不要只看 `SKILL.md`**：`scripts/`、`references/`、`data/`、`agents/` 的变化同样要同步。
 6. 同步后更新本 README 的「版本基线」表与「最后核对日期」。
 7. 移除上游已删除的文件；不要保留遗留副本。
+8. **不要把环境适配回写进分类目录**。适配只存在于安装副本与 `patches/`；更新上游后重新跑 `scripts/adapt.mjs --apply` 即可。
 
 注意：
 
-- **`ui-ux-pro-max` 的脚本使用 `${CLAUDE_PLUGIN_ROOT}/.claude/skills/ui-ux-pro-max/scripts/search.py` 这类绝对路径**。若你的客户端不支持 `CLAUDE_PLUGIN_ROOT`，需要把该变量指向本仓库根目录，或改写脚本调用路径。
-- **`agent-browser` 对应上游的 `skill-data/core`，目录已改名为 `agent-browser`**，其 `SKILL.md` 中 `name:` 仍是 `core`；`references/` 与 `templates/` 相对路径不变。
-- **Anthropic 的 `docx`/`pdf`/`pptx`/`xlsx` 与 `frontend-design` 不是开源许可**：目录内 `LICENSE.txt` 写明使用受 Anthropic 服务条款约束。仅作个人使用收集，不要再分发。
+- **`ui-ux-pro-max` 的脚本路径**（见上表）在每个使用它的 harness 里都要按 §3.2 处理，`CLAUDE_PLUGIN_ROOT` 不能作为唯一方式。
+- **`agent-browser` 对应上游 `skill-data/core`，目录已改名为 `agent-browser`**，其 `SKILL.md` 中 `name:` 仍是 `core`；`references/` 与 `templates/` 相对路径不变。
+- **Anthropic 的 `docx`/`pdf`/`pptx`/`xlsx` 与 `frontend-design` 不是开源许可**：各技能目录内 `LICENSE.txt` 写明使用受 Anthropic 服务条款约束。不要再分发。
 - `vercel-labs/agent-skills` 仓库没有 `LICENSE` 文件，README 声明为 MIT；`licenses/` 中未收录该仓库许可证原文，以 README 声明为准。
 
 ---
@@ -135,5 +175,5 @@
 
 - `ponytail-review`（DietrichGebert/ponytail 同仓库）：只做「过度设计」审查，你确认要的是 `ponytail` 本体。
 - `systematic-debugging`、`verification-before-completion`、`writing-plans`、`requesting-code-review`、`receiving-code-review`（obra/superpowers 及旧库）：与 `code-review`、`diagnosing-bugs` 功能重叠。
-- `agent-browser` 仓库 `skill-data/` 下的 `electron`、`slack`、`dogfood`、`vercel-sandbox`、`derive-client`、`agentcore` 等子技能：不属于浏览器核心操作。
-- `mattpocock/skills` 的 `implement`、`implement-spec`、`prototype`、`research`、`pr`、`retro`、`triage`、`wayfinder`、`to-tickets`、`wizard`、`ask-matt`、`domain-modeling`（已在 `_deps/`）以外的其余技能。
+- `agent-browser` 仓库 `skill-data/` 下的 `electron`、`slack`、`dogfood`、`vercel-sandbox`、`derive-client`、`agentcore`、`protected-vercel-deployments` 等子技能：不属于浏览器核心操作。
+- `mattpocock/skills` 的 `implement`、`implement-spec`、`prototype`、`research`、`pr`、`retro`、`triage`、`wayfinder`、`to-tickets`、`wizard`、`ask-matt` 等其余技能。
